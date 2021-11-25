@@ -6,5 +6,4 @@
 
 \
 \
-\
 > NOTE: UNFINISHED PROJECT.(work in progress)
