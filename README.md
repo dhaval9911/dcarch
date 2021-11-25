@@ -1,2 +1,7 @@
 # DCOS
-my arch linux os that i m trying to make 
+This is Just Another Arch linux  Automated Installation Script For the people that don't want to bother
+installing Arch from scratch in terminal.
+The script will be usefull specifically for  installing Arch  and configuring for pentesting including BlackArch tools
+and a lightweight desktop environment such as MATE or XFCE4.
+i ll add one another option to use openbox as the window manager also for those who want their system 
+to use the least amount of RAM while ideal. 
