@@ -69,6 +69,7 @@ PKGS=(
 'alsa-plugins' # audio plugins
 'arc-gtk-theme'
 'alsa-utils' # audio utils
+'alacritty'
 'ark' # compression
 'autoconf' # build
 'automake' # build
@@ -150,7 +151,6 @@ PKGS=(
 'sddm-kcm'
 'snapper'
 'spectacle'
-'steam'
 'sudo'
 'swtpm'
 'synergy'
@@ -164,7 +164,6 @@ PKGS=(
 'vim'
 'wget'
 'which'
-'xdg-desktop-portal-kde'
 'xdg-user-dirs'
 'zeroconf-ioslave'
 'zip'
@@ -172,3 +171,53 @@ PKGS=(
 'zsh-syntax-highlighting'
 'zsh-autosuggestions'
 )
+
+for PKG in "${PKGS[@]}"; do
+    echo "INSTALLING: ${PKG}"
+    sudo pacman -S "$PKG" --noconfirm --needed
+done
+
+#
+# determine processor type and install microcode
+# 
+proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
+case "$proc_type" in
+	GenuineIntel)
+		print "Installing Intel microcode"
+		pacman -S --noconfirm intel-ucode
+		proc_ucode=intel-ucode.img
+		;;
+	AuthenticAMD)
+		print "Installing AMD microcode"
+		pacman -S --noconfirm amd-ucode
+		proc_ucode=amd-ucode.img
+		;;
+esac	
+
+# Graphics Drivers find and install
+if lspci | grep -E "NVIDIA|GeForce"; then
+    pacman -S nvidia --noconfirm --needed
+	nvidia-xconfig
+elif lspci | grep -E "Radeon"; then
+    pacman -S xf86-video-amdgpu --noconfirm --needed
+elif lspci | grep -E "Integrated Graphics Controller"; then
+    pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
+fi
+
+echo -e "\nDone!\n"
+if ! source install.conf; then
+	read -p "Please enter username:" username
+echo "username=$username" >> ${HOME}/ArchTitus/install.conf
+fi
+if [ $(whoami) = "root"  ];
+then
+    useradd -m -G wheel,libvirt -s /bin/bash $username 
+	passwd $username
+	cp -R /root/ArchTitus /home/$username/
+    chown -R $username: /home/$username/ArchTitus
+	read -p "Please name your machine:" nameofmachine
+	echo $nameofmachine > /etc/hostname
+else
+	echo "You are already a user proceed with aur installs"
+fi
+
