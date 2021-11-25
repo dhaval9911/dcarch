@@ -7,4 +7,4 @@
 \
 \
 \
-*** NOTE: UNFINISHED PROJECT.(work in progress) ***
+** NOTE: UNFINISHED PROJECT.(work in progress) **
