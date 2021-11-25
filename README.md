@@ -4,7 +4,7 @@
 - I will  add one another option to use openbox as the window manager also for those who want their system to use the least amount of RAM while ideal. 
 
 
-
-
-
-NOTE: UNFINISHED PROJECT.(work in progress)
+\
+\
+\
+*** NOTE: UNFINISHED PROJECT.(work in progress) ***
