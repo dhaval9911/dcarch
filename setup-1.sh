@@ -203,20 +203,20 @@ elif lspci | grep -E "Integrated Graphics Controller"; then
     pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
 fi
 
-echo -e "\nDone!\n"
-if ! source install.conf; then
-	read -p "Please enter username:" username
-echo "username=$username" >> ${HOME}/ArchTitus/install.conf
-fi
-if [ $(whoami) = "root"  ];
-then
-    useradd -m -G wheel,libvirt -s /bin/bash $username 
-	passwd $username
-	cp -R /root/dcos /home/$username/
-    chown -R $username: /home/$username/dcos
-	read -p "Please name your machine:" nameofmachine
-	echo $nameofmachine > /etc/hostname
-else
-	echo "You are already a user proceed with aur installs"
-fi
+#echo -e "\nDone!\n"
+#if ! source install.conf; then
+#	read -p "Please enter username:" username
+#echo "username=$username" >> ${HOME}/ArchTitus/install.conf
+#fi
+#if [ $(whoami) = "root"  ];
+#then
+#    useradd -m -G wheel,libvirt -s /bin/bash $username 
+#	passwd $username
+#	cp -R /root/dcos /home/$username/
+#    chown -R $username: /home/$username/dcos
+#	read -p "Please name your machine:" nameofmachine
+#	echo $nameofmachine > /etc/hostname
+#else
+#	echo "You are already a user proceed with aur installs"
+#fi
 
