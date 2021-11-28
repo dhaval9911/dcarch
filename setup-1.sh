@@ -150,6 +150,7 @@ PKGS=(
 'rsync'
 'snapper'
 'spectacle'
+'sddm'
 'sudo'
 'swtpm'
 'synergy'
@@ -212,7 +213,7 @@ apptitle="--------- DCOS ----------"
 txtsethostname="Set Hostname For Your System"
 txtpressanykey="Press any key to continue."
 archsethostname(){
-	hostname=$(whiptail --backtitle "${apptitle}" --title "${txtsethostname}" --inputbox "" 0 0 "archlinux" 3>&1 1>&2 2>&3)
+	hostname=$(whiptail --backtitle "${apptitle}" --title "${txtsethostname}" --inputbox "" 0 0 "dcos" 3>&1 1>&2 2>&3)
 	if [ "$?" = "0" ]; then
 		clear
 		echo "echo \"${hostname}\" > /etc/hostname"
@@ -230,7 +231,7 @@ archusername(){
   if [ $(whoami) = "root" ]; then
          clear
          useradd -m -G wheel -s /bin/bash $username
-         whiptail --title "${apptitle}" --msgbox "${Press Enter to Create Password For $username}" 8 45
+         whiptail --title "${apptitle}" --msgbox "${Press Enter to Create Password }" 8 45
          passwd $username
 	 cp -R /root/dcos /home/$username/
          chown -R $username: /home/$username/dcos
