@@ -231,7 +231,7 @@ archusername(){
   if [ $(whoami) = "root" ]; then
          clear
          useradd -m -G wheel -s /bin/bash $username
-         whiptail --title "${apptitle}" --msgbox "${Press Enter to Create Password }" 8 45
+         whiptail --title "${apptitle}" --msgbox "Press Enter to Create Password" 8 45
          passwd $username
 	 cp -R /root/dcos /home/$username/
          chown -R $username: /home/$username/dcos
