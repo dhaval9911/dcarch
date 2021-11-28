@@ -1,4 +1,3 @@
-
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 echo "-------------------------------------------------"
 echo "Setting up mirrors for optimal download          "
@@ -7,6 +6,7 @@ iso=$(curl -4 ifconfig.co/country-iso)
 timedatectl set-ntp true
 pacman -S --noconfirm pacman-contrib terminus-font
 setfont ter-v22b
+# Add parrelall downlaods in pacman configs
 sed -i 's/^#Para/Para/' /etc/pacman.conf
 pacman -S --noconfirm reflector rsync grub
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
@@ -22,6 +22,7 @@ echo -e "----------------------------------------------------"
 echo -e "-Setting up $iso mirrors for faster downloads"
 echo -e "----------------------------------------------------"
 
+#sort mirrors by download speed
 reflector -a 48 -c $iso -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
 mkdir /mnt
 
@@ -32,6 +33,8 @@ pacman -S --noconfirm gptfdisk btrfs-progs
 echo "-------------------------------------------------"
 echo "--Select The Disk You Want To Install Arch On----"
 echo "-------------------------------------------------"
+echo "-------------------------------------------------"
+echo "--backup any impportant data before going further--"
 lsblk
 echo "Please enter disk to work on: (example /dev/sda)"
 read DISK
@@ -99,7 +102,7 @@ echo "--------------------------------------------"
 pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyring wget libnewt --noconfirm --needed
 genfstab -U /mnt >> /mnt/etc/fstab
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
-cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
+cp -R ${SCRIPT_DIR} /mnt/root/dcos
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 echo "--------------------------------------"
 echo "--GRUB BIOS Bootloader Install&Check--"

@@ -48,7 +48,7 @@ localectl --no-ask-password set-keymap us
 # Add sudo no password rights
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 
-#Add parallel downloading
+# Add parallel downloading now to the system we installed 
 sed -i 's/^#Para/Para/' /etc/pacman.conf
 
 #Enable multilib
@@ -194,6 +194,7 @@ case "$proc_type" in
 esac	
 
 # Graphics Drivers find and install
+echo "installing graphics drivers"
 if lspci | grep -E "NVIDIA|GeForce"; then
     pacman -S nvidia --noconfirm --needed
 	nvidia-xconfig
