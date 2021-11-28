@@ -3,10 +3,11 @@ pressanykey(){
 	read -n1 -p "${txtpressanykey}"
 }
 
+txtsethostname="set hostname for Your System"
 txtpressanykey="Press any key to continue."
 txtusername="Create New User"
 archsethostname(){
-	hostname=$(whiptail --backtitle "${apptitle}" --title "${txtsethostname}" --inputbox "" 0 0 "archlinux" 3>&1 1>&2 2>&3)
+	hostname=$(whiptail --backtitle "${apptitle}" --title "${txtsethostname}" --inputbox "" 0 0 "dcos" 3>&1 1>&2 2>&3)
 	if [ "$?" = "0" ]; then
 		clear
 		echo "echo \"${hostname}\" > /etc/hostname"
@@ -18,7 +19,7 @@ archsethostname(){
 archsethostname
 
 archusername(){
-  username=$(whiptail --backtitle "${apptitle}" --title "${txtusername}" --inputbox "" 0 0  "dcos" 3>&1 1>&2 2>&3)
+  username=$(whiptail --backtitle "${apptitle}" --title "${txtusername}" --inputbox "" 0 0   3>&1 1>&2 2>&3)
   if [ $(whoami) = "root" ]; then
          clear
          useradd -m -G wheel,libvirt -s /bin/bash $username
@@ -50,6 +51,7 @@ touch "$HOME/.cache/zshhistory"
 
 PKGS=(
 'autojump'
+'alacritty'
 'awesome-terminal-fonts'
 'dxvk-bin' # DXVK DirectX to Vulcan
 'lightly-git'
@@ -71,3 +73,39 @@ PKGS=(
 'ttf-meslo' # Nerdfont package
 'ttf-roboto'
 )
+
+
+
+export PATH=$PATH:~/.local/bin
+cp -r $HOME/dcos/dotfiles/* $HOME/.config/
+cp -r $HOME/dcos/.zshrc $HOME/
+cp -r $HOME/dcos/dotfiles/* $HOME/.config/
+
+
+
+
+#installing desktop environment
+
+function desktop() {
+    ADVSEL=$(whiptail --title "Choose Your Desktop Environment To Install" --fb --menu "Choose an option" 15 60 4 \
+        "1" "xfce4" \
+        "2" "Mate" 3>&1 1>&2 2>&3)
+    case $ADVSEL in
+        1)
+            echo "xfce4"
+            pacman -S xfce4 xfce4-goodies --needed --noconfirm
+        ;;
+        2)
+            echo "Mate"
+            pacman -S mate mate-extra
+            dconf load / < mate-backup
+        ;;
+    esac
+}
+desktop
+
+
+echo -e "\nDone!\n"
+exit
+
+
