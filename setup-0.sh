@@ -20,7 +20,7 @@ echo -e " ██║  ██║██║     ██║   ██║╚════
 echo -e " ██████╔╝╚██████╗╚██████╔╝███████║"
 echo -e " ╚═════╝  ╚═════╝ ╚═════╝ ╚══════╝"
 echo -e "----------------------------------------------------"
-echo -e "-Setting up $iso mirrors for faster downloads"
+echo -e "-Setting up $iso mirrors for faster downloads"""
 echo -e "----------------------------------------------------"
 
 #sort mirrors by download speed
