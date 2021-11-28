@@ -208,8 +208,9 @@ pressanykey(){
 	read -n1 -p "${txtpressanykey}"
 }
 
+apptitle="--------- DCOS ----------"
+txtsethostname="Set Hostname For Your System"
 txtpressanykey="Press any key to continue."
-txtusername="Create New User"
 archsethostname(){
 	hostname=$(whiptail --backtitle "${apptitle}" --title "${txtsethostname}" --inputbox "" 0 0 "archlinux" 3>&1 1>&2 2>&3)
 	if [ "$?" = "0" ]; then
@@ -222,11 +223,14 @@ archsethostname(){
 
 archsethostname
 
+txtusername="Create New User"
+enterpassword="Create Password"
 archusername(){
-  username=$(whiptail --backtitle "${apptitle}" --title "${txtusername}" --inputbox "" 0 0  "dcos" 3>&1 1>&2 2>&3)
+  username=$(whiptail --backtitle "${apptitle}" --title "${txtusername}" --inputbox "" 0 0   3>&1 1>&2 2>&3)
   if [ $(whoami) = "root" ]; then
          clear
-         useradd -m -G wheel,libvirt -s /bin/bash $username
+         useradd -m -G wheel -s /bin/bash $username
+         whiptail --title "${apptitle}" --msgbox "${Press Enter to Create Password For $username}" 8 45
          passwd $username
 	 cp -R /root/dcos /home/$username/
          chown -R $username: /home/$username/dcos
@@ -238,20 +242,4 @@ archusername(){
 archusername 
 
 
-#echo -e "\nDone!\n"
-#if ! source install.conf; then
-#	read -p "Please enter username:" username
-#echo "username=$username" >> ${HOME}/ArchTitus/install.conf
-#fi
-#if [ $(whoami) = "root"  ];
-#then
-#    useradd -m -G wheel,libvirt -s /bin/bash $username 
-#	passwd $username
-#	cp -R /root/dcos /home/$username/
-#    chown -R $username: /home/$username/dcos
-#	read -p "Please name your machine:" nameofmachine
-#	echo $nameofmachine > /etc/hostname
-#else
-#	echo "You are already a user proceed with aur installs"
-#fi
-
+echo -e "\nDone!\n"
