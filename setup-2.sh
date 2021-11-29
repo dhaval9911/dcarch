@@ -1,19 +1,18 @@
 #!/bin/bash
 
+echo -e "\nINSTALLING AUR SOFTWARE\n"
+# You can solve users running this script as root with this and then doing the same for the next for statement. 
+# However I will leave this up to you.
 
-#echo -e "\nINSTALLING AUR SOFTWARE\n"
-## You can solve users running this script as root with this and then doing the same for the next for statement. 
-## However I will leave this up to you.
-#
-#echo "CLONING: YAY"
-#cd ~
-#git clone "https://aur.archlinux.org/yay.git"
-#cd ${HOME}/yay
-#makepkg -si --noconfirm
-#cd ~
-#sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-#touch "$HOME/.cache/zshhistory"
-#
+echo "CLONING: YAY"
+cd ~
+git clone "https://aur.archlinux.org/yay.git"
+cd ${HOME}/yay
+makepkg -si --noconfirm
+cd ~
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+touch "$HOME/.cache/zshhistory"
+
 echo -e "\nINSTALLING AUR SOFTWARE\n"
 PKGS=(
 'autojump'
@@ -51,7 +50,10 @@ cp -r $HOME/dcos/.zshrc $HOME/
 cp -r $HOME/dcos/dotfiles/* $HOME/.config/
 
 
-
+echo -e "Adding BlackArch Repo To The system "
+curl -O https://blackarch.org/strap.sh
+chmod +x strap.sh
+sudo ./strap.sh
 
 #installing desktop environment
 

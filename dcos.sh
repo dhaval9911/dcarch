@@ -2,6 +2,7 @@
 
    bash setup-0.sh
    arch-chroot /mnt /root/dcos/setup-1.sh
+   source /mnt/root/dcos/install.conf
    arch-chroot /mnt /usr/bin/runuser -u $username -- /home/$username/dcos/setup-2.sh
    arch-chroot /mnt /root/dcos/setup-3.sh
 

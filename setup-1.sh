@@ -205,63 +205,45 @@ elif lspci | grep -E "Integrated Graphics Controller"; then
     pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
 fi
 
-# pressanykey(){
-# 	read -n1 -p "${txtpressanykey}"
-# }
-# 
-# apptitle="--------- DCOS ----------"
-# txtsethostname="Set Hostname For Your System"
-# txtpressanykey="Press any key to continue."
-# archsethostname(){
-# 	hostname=$(whiptail --backtitle "${apptitle}" --title "${txtsethostname}" --inputbox "" 0 0 "dcos" 3>&1 1>&2 2>&3)
-# 	if [ "$?" = "0" ]; then
-# 		clear
-# 		echo "echo \"${hostname}\" > /etc/hostname"
-# 		echo "${hostname}" > /etc/hostname
-# 		pressanykey
-# 	fi
-# }
-# 
-# archsethostname
-# 
-# txtusername="Create New User"
-# enterpassword="Create Password"
-# archusername(){
-#   username=$(whiptail --backtitle "${apptitle}" --title "${txtusername}" --inputbox "" 0 0   3>&1 1>&2 2>&3)
-#   if [ $(whoami) = "root" ]; then
-#          clear
-#          useradd -m -G wheel -s /bin/bash $username
-#          whiptail --title "${apptitle}" --msgbox "Press Enter to Create Password" 8 45
-#          passwd $username
-# 	 cp -R /root/dcos /home/$username/
-#          chown -R $username: /home/$username/dcos
-#   else
-# 	echo "You are already a user proceed with aur installs"
-#   fi
-# }
-# 
-# archusername 
-
 echo -e "\nDone!\n"
-read -p "Please enter username:" username
-useradd -m -G wheel -s /bin/bash $username 
-passwd $username
-cp -R /root/dcos /home/$username/
- chown -R $username: /home/$username/dcos
-read -p "Please name your machine:" nameofmachine
-echo $nameofmachine > /etc/hostname
 
 
-echo -e "\nINSTALLING AUR SOFTWARE\n"
-# You can solve users running this script as root with this and then doing the same for the next for statement. 
-# However I will leave this up to you.
-pacman -U yay-*
-#echo "CLONING: YAY"
-# cd ~
-# git clone "https://aur.archlinux.org/yay.git"
-# cd ${HOME}/yay
-# makepkg -si --noconfirm
-# cd ~
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# touch "$HOME/.cache/zshhistory"
-# echo -e "\nDone!\n"
+ pressanykey(){
+ 	read -n1 -p "${txtpressanykey}"
+ }
+ 
+ apptitle="--------- DCOS ----------"
+ txtsethostname="Set Hostname For Your System"
+ txtpressanykey="Press any key to continue."
+ archsethostname(){
+ 	hostname=$(whiptail --backtitle "${apptitle}" --title "${txtsethostname}" --inputbox "" 0 0 "dcos" 3>&1 1>&2 2>&3)
+ 	if [ "$?" = "0" ]; then
+ 		clear
+ 		echo "echo \"${hostname}\" > /etc/hostname"
+ 		echo "${hostname}" > /etc/hostname
+ 		pressanykey
+ 	fi
+ }
+ 
+ archsethostname
+ 
+ txtusername="Create New User"
+ enterpassword="Create Password"
+ archusername(){
+   username=$(whiptail --backtitle "${apptitle}" --title "${txtusername}" --inputbox "" 0 0   3>&1 1>&2 2>&3)
+   if [ $(whoami) = "root" ]; then
+          clear
+          useradd -m -G wheel -s /bin/bash $username
+          echo "username=$username" >> ${HOME}/dcos/install.conf
+          whiptail --title "${apptitle}" --msgbox "Press Enter to Create Password" 8 45
+          passwd $username
+ 	  cp -R /root/dcos /home/$username/
+          chown -R $username: /home/$username/dcos
+   else
+ 	echo "You are already a user proceed with aur installs"
+   fi
+ }
+ 
+ archusername 
+
+
