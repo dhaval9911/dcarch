@@ -19,8 +19,6 @@ PKGS=(
 'alacritty'
 'awesome-terminal-fonts'
 'dxvk-bin' # DXVK DirectX to Vulcan
-'lightly-git'
-'lightlyshaders-git'
 'multicolor-sddm-theme'
 'nerd-fonts-fira-code'
 'nordic-darker-standard-buttons-theme'
