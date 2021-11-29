@@ -245,7 +245,6 @@ fi
 echo -e "\nDone!\n"
 read -p "Please enter username:" username
 echo "username=$username" >> ${HOME}/dcos/install.conf
-fi
 if [ $(whoami) = "root"  ];
 then
     useradd -m -G wheel -s /bin/bash $username 
