@@ -272,5 +272,4 @@ makepkg -si --noconfirm
 cd ~
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 touch "$HOME/.cache/zshhistory"
-sudo su
 echo -e "\nDone!\n"
