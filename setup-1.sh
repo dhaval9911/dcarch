@@ -243,16 +243,15 @@ fi
 # archusername 
 
 echo -e "\nDone!\n"
-if ! source install.conf; then
-	read -p "Please enter username:" username
-echo "username=$username" >> ${HOME}/ArchTitus/install.conf
+read -p "Please enter username:" username
+echo "username=$username" >> ${HOME}/dcos/install.conf
 fi
 if [ $(whoami) = "root"  ];
 then
-    useradd -m -G wheel,libvirt -s /bin/bash $username 
+    useradd -m -G wheel -s /bin/bash $username 
 	passwd $username
-	cp -R /root/ArchTitus /home/$username/
-    chown -R $username: /home/$username/ArchTitus
+	cp -R /root/dcos /home/$username/
+    chown -R $username: /home/$username/dcos
 	read -p "Please name your machine:" nameofmachine
 	echo $nameofmachine > /etc/hostname
 else
@@ -263,13 +262,13 @@ fi
 echo -e "\nINSTALLING AUR SOFTWARE\n"
 # You can solve users running this script as root with this and then doing the same for the next for statement. 
 # However I will leave this up to you.
-
-echo "CLONING: YAY"
-cd ~
-git clone "https://aur.archlinux.org/yay.git"
-cd ${HOME}/yay
-makepkg -si --noconfirm
-cd ~
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-touch "$HOME/.cache/zshhistory"
-echo -e "\nDone!\n"
+pacman -U yay-*
+#echo "CLONING: YAY"
+# cd ~
+# git clone "https://aur.archlinux.org/yay.git"
+# cd ${HOME}/yay
+# makepkg -si --noconfirm
+# cd ~
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# touch "$HOME/.cache/zshhistory"
+# echo -e "\nDone!\n"
