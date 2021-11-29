@@ -205,42 +205,59 @@ elif lspci | grep -E "Integrated Graphics Controller"; then
     pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
 fi
 
-pressanykey(){
-	read -n1 -p "${txtpressanykey}"
-}
+# pressanykey(){
+# 	read -n1 -p "${txtpressanykey}"
+# }
+# 
+# apptitle="--------- DCOS ----------"
+# txtsethostname="Set Hostname For Your System"
+# txtpressanykey="Press any key to continue."
+# archsethostname(){
+# 	hostname=$(whiptail --backtitle "${apptitle}" --title "${txtsethostname}" --inputbox "" 0 0 "dcos" 3>&1 1>&2 2>&3)
+# 	if [ "$?" = "0" ]; then
+# 		clear
+# 		echo "echo \"${hostname}\" > /etc/hostname"
+# 		echo "${hostname}" > /etc/hostname
+# 		pressanykey
+# 	fi
+# }
+# 
+# archsethostname
+# 
+# txtusername="Create New User"
+# enterpassword="Create Password"
+# archusername(){
+#   username=$(whiptail --backtitle "${apptitle}" --title "${txtusername}" --inputbox "" 0 0   3>&1 1>&2 2>&3)
+#   if [ $(whoami) = "root" ]; then
+#          clear
+#          useradd -m -G wheel -s /bin/bash $username
+#          whiptail --title "${apptitle}" --msgbox "Press Enter to Create Password" 8 45
+#          passwd $username
+# 	 cp -R /root/dcos /home/$username/
+#          chown -R $username: /home/$username/dcos
+#   else
+# 	echo "You are already a user proceed with aur installs"
+#   fi
+# }
+# 
+# archusername 
 
-apptitle="--------- DCOS ----------"
-txtsethostname="Set Hostname For Your System"
-txtpressanykey="Press any key to continue."
-archsethostname(){
-	hostname=$(whiptail --backtitle "${apptitle}" --title "${txtsethostname}" --inputbox "" 0 0 "dcos" 3>&1 1>&2 2>&3)
-	if [ "$?" = "0" ]; then
-		clear
-		echo "echo \"${hostname}\" > /etc/hostname"
-		echo "${hostname}" > /etc/hostname
-		pressanykey
-	fi
-}
-
-archsethostname
-
-txtusername="Create New User"
-enterpassword="Create Password"
-archusername(){
-  username=$(whiptail --backtitle "${apptitle}" --title "${txtusername}" --inputbox "" 0 0   3>&1 1>&2 2>&3)
-  if [ $(whoami) = "root" ]; then
-         clear
-         useradd -m -G wheel -s /bin/bash $username
-         whiptail --title "${apptitle}" --msgbox "Press Enter to Create Password" 8 45
-         passwd $username
-	 cp -R /root/dcos /home/$username/
-         chown -R $username: /home/$username/dcos
-  else
+echo -e "\nDone!\n"
+if ! source install.conf; then
+	read -p "Please enter username:" username
+echo "username=$username" >> ${HOME}/ArchTitus/install.conf
+fi
+if [ $(whoami) = "root"  ];
+then
+    useradd -m -G wheel,libvirt -s /bin/bash $username 
+	passwd $username
+	cp -R /root/ArchTitus /home/$username/
+    chown -R $username: /home/$username/ArchTitus
+	read -p "Please name your machine:" nameofmachine
+	echo $nameofmachine > /etc/hostname
+else
 	echo "You are already a user proceed with aur installs"
-  fi
-}
-
-archusername 
+fi
 
 
 echo -e "\nINSTALLING AUR SOFTWARE\n"
@@ -251,7 +268,6 @@ echo "CLONING: YAY"
 cd ~
 git clone "https://aur.archlinux.org/yay.git"
 cd ${HOME}/yay
-su $username 
 makepkg -si --noconfirm
 cd ~
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
