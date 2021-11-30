@@ -29,8 +29,6 @@ PKGS=(
 'nerd-fonts-ubuntu-mono'
 'noto-fonts-emoji'
 'papirus-icon-theme'
-'ocs-url' # install packages from websites
-'sddm-nordic-theme-git'
 'ttf-droid'
 'ttf-hack'
 'ttf-meslo' # Nerdfont package
