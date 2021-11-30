@@ -38,7 +38,7 @@ echo "  Setup Language to EN_India and set locale      "
 echo "-------------------------------------------------"
 sed -i 's/^#en_IN.UTF-8 UTF-8/en_IN.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
-timedatectl --no-ask-password set-timezone  Asia/Kolkata        
+timedatectl --no-ask-password set-timezone  Asia/Kolkata
 timedatectl --no-ask-password set-ntp 1
 localectl --no-ask-password set-locale LANG="en_IN.UTF-8" LC_TIME="en_IN.UTF-8"
 
@@ -48,7 +48,7 @@ localectl --no-ask-password set-keymap us
 # Add sudo no password rights
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 
-# Add parallel downloading now to the system we installed 
+# Add parallel downloading now to the system we installed
 sed -i 's/^#Para/Para/' /etc/pacman.conf
 
 #Enable multilib
@@ -179,7 +179,7 @@ done
 
 #
 # determine processor type and install microcode
-# 
+#
 proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
 case "$proc_type" in
 	GenuineIntel)
@@ -192,7 +192,7 @@ case "$proc_type" in
 		pacman -S --noconfirm amd-ucode
 		proc_ucode=amd-ucode.img
 		;;
-esac	
+esac
 
 # Graphics Drivers find and install
 echo "installing graphics drivers"
@@ -211,7 +211,6 @@ echo -e "\nDone!\n"
  pressanykey(){
  	read -n1 -p "${txtpressanykey}"
  }
- 
  apptitle="--------- DCOS ----------"
  txtsethostname="Set Hostname For Your System"
  txtpressanykey="Press any key to continue."
@@ -224,9 +223,9 @@ echo -e "\nDone!\n"
  		pressanykey
  	fi
  }
- 
+
  archsethostname
- 
+
  txtusername="Create New User"
  enterpassword="Create Password"
  archusername(){
@@ -243,7 +242,7 @@ echo -e "\nDone!\n"
  	echo "You are already a user proceed with aur installs"
    fi
  }
- 
- archusername 
+
+ archusername
 
 
