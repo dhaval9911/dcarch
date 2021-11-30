@@ -4,14 +4,14 @@ echo -e "\nINSTALLING AUR SOFTWARE\n"
 # You can solve users running this script as root with this and then doing the same for the next for statement. 
 # However I will leave this up to you.
 
-echo "CLONING: YAY"
-cd ~
-git clone "https://aur.archlinux.org/yay.git"
-cd ${HOME}/yay
-makepkg -si --noconfirm
-cd ~
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-touch "$HOME/.cache/zshhistory"
+pacman -U /root/dcos/yay.pkg.tar.zst
+# echo "CLONING: YAY"
+# cd ~
+# git clone "https://aur.archlinux.org/yay.git"
+# cd ${HOME}/yay
+# makepkg -si --noconfirm
+# cd ~
+# touch "$HOME/.cache/zshhistory"
 
 echo -e "\nINSTALLING AUR SOFTWARE\n"
 PKGS=(
@@ -41,9 +41,9 @@ done
 
 
 export PATH=$PATH:~/.local/bin
-cp -r $HOME/dcos/dotfiles/* $HOME/.config/
-cp -r $HOME/dcos/.zshrc $HOME/
-cp -r $HOME/dcos/dotfiles/* $HOME/.config/
+cp -r /root/dcos/dotfiles/* $HOME/.config/
+cp -r /root/dcos/.zshrc $HOME/
+cp -r /root/dcos/dotfiles/* $HOME/.config/
 
 
 echo -e "Adding BlackArch Repo To The system "
@@ -69,6 +69,7 @@ function desktop() {
         ;;
     esac
 }
+
 desktop
 
 
