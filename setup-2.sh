@@ -3,8 +3,8 @@
 echo -e "\nINSTALLING AUR SOFTWARE\n"
 # You can solve users running this script as root with this and then doing the same for the next for statement. 
 # However I will leave this up to you.
-
-pacman -U /root/dcos/yay.pkg.tar.zst
+source install.conf
+pacman -U /$username/dcos/yay.pkg.tar.zst --noconfirm 
 # echo "CLONING: YAY"
 # cd ~
 # git clone "https://aur.archlinux.org/yay.git"
@@ -64,8 +64,9 @@ function desktop() {
         ;;
         2)
             echo "Mate"
-            pacman -S mate mate-extra
-            dconf load / < mate-backup
+            yay -S mintmenu brisk-menu --noconfirm --needed 
+            pacman -S mate mate-extra --noconfirm --needed 
+            dconf load /org/mate < mate-backup
         ;;
     esac
 }
