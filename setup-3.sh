@@ -39,13 +39,13 @@ sudo ./install.sh
 cd ~
 echo -e "\nEnabling essential services"
 
-systemctl enable cups.service
-ntpd -qg
-systemctl enable ntpd.service
-systemctl disable dhcpcd.service
-systemctl stop dhcpcd.service
+#systemctl enable cups.service
+#ntpd -qg
+#systemctl enable ntpd.service
+#systemctl disable dhcpcd.service
+#systemctl stop dhcpcd.service
 systemctl enable NetworkManager.service
-systemctl enable bluetooth
+#systemctl enable bluetooth
 echo "
 ###############################################################################
 # Cleaning
