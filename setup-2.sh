@@ -62,10 +62,7 @@ function desktop() {
             pacman -S xfce4 xfce4-goodies --needed --noconfirm
         ;;
         2)
-            echo "Mate"
-            yay -S mintmenu brisk-menu --noconfirm --needed 
-            pacman -S mate mate-extra --noconfirm --needed 
-            dconf load /org/mate < mate-backup
+            echo "Mate" && yay -S mintmenu brisk-menu --noconfirm --needed &&  pacman -S mate mate-extra --noconfirm --needed && dconf load /org/mate < mate-backup
         ;;
     esac
 }
