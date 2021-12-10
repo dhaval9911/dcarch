@@ -44,30 +44,8 @@ cp -r /root/dcos/dotfiles/* $HOME/.config/
 cp -r /root/dcos/.zshrc $HOME/
 cp -r /root/dcos/dotfiles/* $HOME/.config/
 
-cd ~
-echo -e "Adding BlackArch Repo To The system "
-curl -O https://blackarch.org/strap.sh
-chmod +x strap.sh
-sudo ./strap.sh
-cd $HOME/dcos/
 #installing desktop environment
-
-function desktop() {
-    ADVSEL=$(whiptail --title "Choose Your Desktop Environment To Install" --fb --menu "Choose an option" 15 60 4 \
-        "1" "xfce4" \
-        "2" "Mate" 3>&1 1>&2 2>&3)
-    case $ADVSEL in
-        1)
-            echo "xfce4"
-            pacman -S xfce4 xfce4-goodies --needed --noconfirm
-        ;;
-        2)
-            echo "Mate" && yay -S mintmenu brisk-menu --noconfirm --needed &&  pacman -S mate mate-extra --noconfirm --needed && dconf load /org/mate < mate-backup
-        ;;
-    esac
-}
-
-desktop
+yay -S mintmenu brisk-menu --noconfirm --needed &&  pacman -S mate mate-extra --noconfirm --needed && dconf load /org/mate < $HOME/dcos/mate-backup
 
 
 echo -e "\nDone!\n"
