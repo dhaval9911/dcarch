@@ -3,14 +3,14 @@
 echo -e "\nINSTALLING AUR SOFTWARE\n"
 # You can solve users running this script as root with this and then doing the same for the next for statement. 
 # However I will leave this up to you.
-sudo pacman -U /$username/dcos/yay.pkg.tar.zst --noconfirm 
-# echo "CLONING: YAY"
-# cd ~
-# git clone "https://aur.archlinux.org/yay.git"
-# cd ${HOME}/yay
-# makepkg -si --noconfirm
-# cd ~
-# touch "$HOME/.cache/zshhistory"
+#sudo pacman -U /$username/dcos/yay.pkg.tar.zst --noconfirm 
+ echo "CLONING: YAY"
+ cd ~
+ git clone "https://aur.archlinux.org/yay.git"
+ cd ${HOME}/yay
+ makepkg -si --noconfirm
+ cd ~
+ touch "$HOME/.cache/zshhistory"
 
 echo -e "\nINSTALLING AUR SOFTWARE\n"
 PKGS=(
@@ -44,12 +44,12 @@ cp -r /root/dcos/dotfiles/* $HOME/.config/
 cp -r /root/dcos/.zshrc $HOME/
 cp -r /root/dcos/dotfiles/* $HOME/.config/
 
-
+cd ~
 echo -e "Adding BlackArch Repo To The system "
 curl -O https://blackarch.org/strap.sh
 chmod +x strap.sh
 sudo ./strap.sh
-
+cd $HOME/dcos/
 #installing desktop environment
 
 function desktop() {
