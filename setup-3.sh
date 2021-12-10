@@ -20,6 +20,11 @@ fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # ------------------------------------------------------------------------
+echo -e "Adding BlackArch Repo To The system "
+curl -O https://blackarch.org/strap.sh
+chmod +x strap.sh
+sudo ./strap.sh
+
 
 echo -e "\nEnabling Login Display Manager"
 systemctl enable sddm.service
