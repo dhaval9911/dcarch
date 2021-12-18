@@ -45,7 +45,7 @@ cp -r /root/dcos/.zshrc $HOME/
 cp -r /root/dcos/dotfiles/* $HOME/.config/
 
 #installing desktop environment
-yay -S mintmenu brisk-menu --noconfirm --needed &&  pacman -S mate mate-extra --noconfirm --needed && dconf load /org/mate < $HOME/dcos/mate-backup
+yay -S mintmenu brisk-menu --noconfirm --needed &&  pacman -S mate mate-extra --noconfirm --needed && dconf load /org/mate/ < $HOME/dcos/mate-backup
 
 
 echo -e "\nDone!\n"
