@@ -17,5 +17,6 @@ From initial Prompt type the following commands:
 pacman -Sy git
 git clone https://github.com/dhaval9911/dcos.git
 cd dcos
+chmod +x *.sh
 ./dcos.sh
 ```
